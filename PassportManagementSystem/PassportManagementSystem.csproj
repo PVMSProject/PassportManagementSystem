@@ -45,10 +45,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -124,6 +132,43 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\City.cs">
+      <DependentUpon>UserRegistration.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomDOB.cs" />
+    <Compile Include="Models\DBOperations.cs" />
+    <Compile Include="Models\EmailCheck.cs" />
+    <Compile Include="Models\OldPassportData.cs">
+      <DependentUpon>UserRegistration.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PassportApplication.cs">
+      <DependentUpon>UserRegistration.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\State.cs">
+      <DependentUpon>UserRegistration.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>UserRegistration.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserRegistration.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserRegistration.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserRegistration.cs">
+      <DependentUpon>UserRegistration.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserRegistration.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserRegistration.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VisaApplication.cs">
+      <DependentUpon>UserRegistration.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VisaCancellation.cs">
+      <DependentUpon>UserRegistration.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -136,8 +181,26 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\logo_transparent.png" />
+    <Content Include="Models\UserRegistration.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>UserRegistration.Context.cs</LastGenOutput>
+      <DependentUpon>UserRegistration.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\UserRegistration.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>UserRegistration.edmx</DependentUpon>
+      <LastGenOutput>UserRegistration1.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\UserRegistration.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>UserRegistration.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\UserRegistration.edmx.diagram">
+      <DependentUpon>UserRegistration.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -149,6 +212,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Styles\HomeMasterPage.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -164,10 +228,11 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_CustomLayout.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -181,6 +246,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -306,23 +306,20 @@ textarea {
   resize: vertical;
 }
 
-fieldset {
-  min-width: 0;
-  padding: 0;
-  margin: 0;
-  border: 0;
+fieldset{
+    margin-top:2%;
+    margin-bottom:2%;
+    border:ridge;
+    margin-right:27%;
 }
 
 legend {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  padding: 0;
+  margin-right:70%;
   margin-bottom: .5rem;
-  font-size: 1.5rem;
-  line-height: inherit;
+  font-size: 1rem;
+  line-height:inherit;
   color: inherit;
-  white-space: normal;
+  white-space:normal;
 }
 
 progress {
@@ -10502,9 +10499,10 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .navbar {
-  font-size: 0.765625rem;
-  text-transform: uppercase;
-  font-weight: 600;
+    height: 70px;
+    font-size: 0.765625rem;
+    text-transform: uppercase;
+    font-weight: 600;
 }
 
 .navbar-nav .nav-link {

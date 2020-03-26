@@ -3,7 +3,10 @@
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
-
+@if(ViewBag.welcome!=null)
+{
+    <h4>@ViewBag.welcome</h4>   
+}
 <address>
     One Microsoft Way<br />
     Redmond, WA 98052-6399<br />
