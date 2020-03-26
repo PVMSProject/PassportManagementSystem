@@ -2,12 +2,12 @@
 @{
     ViewBag.Title = "Login";
 }
-@using (Html.BeginForm())
+@using (Html.BeginForm("LoginPage","Home"))
 {
     <center>
         <h2 style="margin-top:3%;margin-bottom:3%;">Login Form</h2>
         <div class="form-group">
-            @Html.TextBoxFor(a => a.UserID, new { @class = "form-control", @placeholder = "User ID *",@onblur= "getContact();" })
+            @Html.TextBoxFor(a => a.UserID, new { @class = "form-control", @placeholder = "User ID *", @onblur = "getContact();" })
             @Html.ValidationMessageFor(a => a.UserID, "", new { @class = "text-danger" })
         </div>
         <div class="form-group">
@@ -21,7 +21,7 @@
         <input type="submit" class="btn btn-primary" value="Login" style="margin-bottom:3%" />
         @if (ViewBag.error != null)
         {
-            <div class="alert alert-dismissible alert-danger" style="width:30%;margin-bottom:3%;">
+            <div class="alert alert-dismissible alert-danger" style="width:32%;margin-bottom:3%;padding-left:3%;">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                 <strong>@ViewBag.error</strong>
             </div>

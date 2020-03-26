@@ -8,7 +8,7 @@ namespace PassportManagementSystem.Models
     public class DBOperations
     {
         static PassportVisaManagementSystemEntities P = new PassportVisaManagementSystemEntities();
-        static Random _random = new Random();
+        static Random random = new Random();
         public static UserRegistration Registration(UserRegistration R)
         {
             string citizentype = String.Empty;
@@ -25,16 +25,16 @@ namespace PassportManagementSystem.Models
                 userid = R.ApplyType.Substring(0, 4).ToUpper() + "-" + String.Format("{0:0000}", visaid);
             List<string> retrived_pass = (from c in P.UserRegistrations
                                          select c.Password.Substring(c.Password.Length-3,c.Password.Length).ToString()).ToList();
-            string randomid=String.Format("{0:000}",_random.Next(0, 999));
+            string randomid=String.Format("{0:000}",random.Next(0, 999));
             while(true)
             {
                 if (retrived_pass.Contains(randomid))
-                    randomid = String.Format("{0:000}", _random.Next(0, 999)); 
+                    randomid = String.Format("{0:000}", random.Next(0, 999)); 
                 else
                     break;
             }      
             char[] specialchar = { '#', '@', '$' };
-            char sp = specialchar[_random.Next(0, specialchar.Length)];
+            char sp = specialchar[random.Next(0, specialchar.Length)];
             DateTime today = DateTime.Today;
             string password = today.Day.ToString() + today.ToString("MMM").ToLower() + sp + randomid;
             int age = (int)(DateTime.Today.Subtract(R.DateOfBirth).TotalDays / 365);
@@ -70,7 +70,6 @@ namespace PassportManagementSystem.Models
             UserRegistration details = (from c in P.UserRegistrations
                                where c.UserID == userid
                                select c).FirstOrDefault();
-            //UserRegistration details = (UserRegistration)contactnumer;
             if (details != null)
                 return details;
             else

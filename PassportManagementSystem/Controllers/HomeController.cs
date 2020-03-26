@@ -50,10 +50,9 @@ namespace PassportManagementSystem.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public ActionResult Login(UserRegistration R)
-        {
-            if (ModelState.IsValid)
+        public ActionResult LoginPage(UserRegistration R)
+        {         
+            if (ModelState.IsValidField("UserID") && ModelState.IsValidField("ContactNumber") && ModelState.IsValidField("Password"))
             {
                 UserRegistration userdetails = DBOperations.Login(R);
                 if(userdetails!=null)
@@ -61,23 +60,24 @@ namespace PassportManagementSystem.Controllers
                     if (userdetails.ApplyType == "Passport")
                     {
                         ViewBag.welcome = "Welcome " + userdetails.FirstName + " " + userdetails.SurName;
-                        return RedirectToAction("Contact");
+                        return View("Contact");
                     }
                     else if (userdetails.ApplyType == "Visa")
                     {
                         ViewBag.welcome = "Welcome " + userdetails.FirstName + " " + userdetails.SurName;
-                        return RedirectToAction("About");
+                        return View("About");
                     }
                 }
                 else
                 {
                     ViewBag.error = "Invalid Credentials";
-                    return View();
+                    ModelState.Clear();
+                    return View("Login");
                 }
-                return View();
+                return View("Login");
             }
             else
-                return View();
+                return View("Login");
         }
         public ActionResult GetContactNumber()
         {
