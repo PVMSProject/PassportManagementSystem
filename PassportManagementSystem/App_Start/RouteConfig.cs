@@ -16,7 +16,7 @@ namespace PassportManagementSystem
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "PassportManagementSystem", action = "Home", id = UrlParameter.Optional }
             );
         }
     }

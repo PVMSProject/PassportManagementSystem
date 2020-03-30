@@ -1,0 +1,89 @@
+﻿@model PassportManagementSystem.Models.PassportApplication
+@{
+    ViewBag.Title = "ApplyPassport";
+    PassportManagementSystem.Models.PassportApplication userdata = (PassportManagementSystem.Models.PassportApplication)ViewBag.data;
+    <link href="~/Styles/ApplyPassport.css" rel="stylesheet" />
+}
+
+<h3 class="title-register">APPLY PASSPORT</h3>
+<div style="float:right;color:red;font-weight:bold;margin-right:10%;">* All Fields are Required</div>
+<div class="register-form">
+    @using (Html.BeginForm())
+    {
+        <div class="div-left">
+            <div class="form-group">
+                @Html.TextBoxFor(a => a.UserID, new { @class = "form-control", @placeholder = "UserID *" })
+                @Html.ValidationMessageFor(a => a.UserID, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.TextBoxFor(a => a.Country, new { @class = "form-control", @placeholder = "Country *" })
+                @Html.ValidationMessageFor(a => a.Country, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.DropDownListFor(a => a.State, new SelectList(ViewBag.state, "STATE_ID", "STATE_NAME", ViewBag.statename), "-- Select your State -- *", new {@onchange="getCity()",@class = "form-control" })
+                @Html.ValidationMessageFor(a => a.State, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.DropDownListFor(a => a.City, new SelectList(ViewBag.city, "STATE_ID", "CITY_NAME"), "-- Select your City -- *", new { @id="City",@class = "form-control" })
+                @Html.ValidationMessageFor(a => a.City, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="div-right">
+            <div class="form-group">
+                @Html.TextBoxFor(a => a.Pin, new { @class = "form-control", @placeholder = "Security Pin Number *", @type = "number" })
+                @Html.ValidationMessageFor(a => a.Pin, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.DropDownListFor(a => a.TypeOfService, new List<SelectListItem> {
+                          new SelectListItem { Value = "Normal" , Text = "Normal" },
+                          new SelectListItem { Value = "Tatkal" , Text = "Tatkal" }
+                       }, "-- Select Type of Service -- *", new { @class = "form-control" })
+                @Html.ValidationMessageFor(a => a.TypeOfService, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.DropDownListFor(a => a.BookletType, new List<SelectListItem> {
+                          new SelectListItem { Value = "30 Pages" , Text = "30 Pages" },
+                          new SelectListItem { Value = "60 Pages" , Text = "60 Pages" }
+                       }, "-- Select Type of Booklet -- *", new { @class = "form-control" })
+                @Html.ValidationMessageFor(a => a.BookletType, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.TextBoxFor(a => a.IssueDate, new { @class = "form-control", @placeholder = "Issue Date DD/MM/YYYY*" })
+                @Html.ValidationMessageFor(a => a.IssueDate, "", new { @class = "text-danger" })
+            </div>
+            <input type="submit" class="btn btn-primary" value="APPLY" style="float:right;margin-right:37%;margin-top:5%;" />
+        </div>
+        if (userdata != null)
+        {
+            <div class="alert alert-dismissible alert-success" style="position:absolute;margin:1% 25% 0% 25%;width:35%;">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <p>Dear User,</p>
+                <p style="color:red;">Need the Passport Number while giving payment.</p>
+                <p>Please note down your Passport ID <span style="color:mediumblue">@userdata.PassportNumber</span>.</p>
+                <p>Passport Application Cost is Rs. <span style="color:mediumblue">@userdata.Amount</span>.</p>
+            </div>
+        }
+        if (ViewBag.error != null)
+        {
+            <div class="alert alert-dismissible alert-danger" style="position:absolute;margin:18% 22% 0% 28%;width:27%;">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <span>@ViewBag.error</span>
+            </div>
+        }
+    }
+</div>
+<script>
+    function getCity() {
+        var stateid = document.getElementById("State").value;
+        if (stateid.length != 0)
+        {
+            window.location.href = "/PassportManagementSystem/ApplyPassport?sid=" + stateid;
+            document.getElementById("City").readonly = false;
+        }
+    }
+    //$('#State').change(function () {
+    //    var selectedState = $('#State').val();
+    //    alert(selectedState);
+    //});
+</script>

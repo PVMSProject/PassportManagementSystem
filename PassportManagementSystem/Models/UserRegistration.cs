@@ -12,7 +12,6 @@ namespace PassportManagementSystem.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Web.Mvc;
 
     public partial class UserRegistration
     {
@@ -20,7 +19,9 @@ namespace PassportManagementSystem.Models
         public UserRegistration()
         {
             this.PassportApplications = new HashSet<PassportApplication>();
+            this.VisaApplications = new HashSet<VisaApplication>();
         }
+
         [Required]
         public string UserID { get; set; }
         [Required]
@@ -34,7 +35,7 @@ namespace PassportManagementSystem.Models
         public string Address { get; set; }
         [Required]
         public string ContactNumber { get; set; }
-        [RegularExpression("^[a-z0-9_\\+-]+(\\.[a-z0-9_\\+-]+)*@[a-z0-9-]+(\\.[a-z0-9]+)*\\.([a-z]{2,4})$",ErrorMessage ="Invalid EmailID Format")]
+        [RegularExpression("^[a-z0-9_\\+-]+(\\.[a-z0-9_\\+-]+)*@[a-z0-9-]+(\\.[a-z0-9]+)*\\.([a-z]{2,4})$", ErrorMessage = "Invalid EmailID Format")]
         [EmailCheck]
         [Required]
         public string EmailAddress { get; set; }
@@ -51,8 +52,10 @@ namespace PassportManagementSystem.Models
         [Required]
         public string Password { get; set; }
         public string CitizenType { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PassportApplication> PassportApplications { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VisaApplication> VisaApplications { get; set; }
     }
 }

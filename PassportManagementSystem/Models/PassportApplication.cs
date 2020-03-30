@@ -11,28 +11,44 @@ namespace PassportManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class PassportApplication
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PassportApplication()
         {
+            this.ReasonForReIssue = "NA";
             this.VisaApplications = new HashSet<VisaApplication>();
         }
-    
-        public string UserID { get; set; }
+
+        [RegularExpression("^FPS-[3|6][0][0-9]{4}$", ErrorMessage = "Passport Number is not valid")]
+        [Required]
         public string PassportNumber { get; set; }
+        [RegularExpression("^PASS-[0-9]{4}$", ErrorMessage = "UserID must be like PASS-1234")]
+        [Required]
+        public string UserID { get; set; }
+        [Required]
         public string Country { get; set; }
+        [Required]
         public string State { get; set; }
+        [Required]
         public string City { get; set; }
+        [RegularExpression("^[0-9]{6}$", ErrorMessage = "Pin must contain only 6 numbers.")]
+        [Required]
         public string Pin { get; set; }
+        [Required]
         public string TypeOfService { get; set; }
+        [Required]
         public string BookletType { get; set; }
+        [CustomDOI]
+        [Required]
         public System.DateTime IssueDate { get; set; }
         public System.DateTime ExpiryDate { get; set; }
         public int Amount { get; set; }
+        [Required]
         public string ReasonForReIssue { get; set; }
-    
+
         public virtual UserRegistration UserRegistration { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VisaApplication> VisaApplications { get; set; }

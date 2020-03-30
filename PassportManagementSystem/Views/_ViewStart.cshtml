@@ -1,3 +1,17 @@
 ﻿@{
-    Layout = "~/Views/Shared/_CustomLayout.cshtml";
+    if (HttpContext.Current.Session["ApplyType"] != null && HttpContext.Current.Session["UserID"]!=null)
+    {
+        if (HttpContext.Current.Session["ApplyType"].ToString() == "Passport")
+        {
+            Layout = "~/Views/Shared/_DashboardLayout1.cshtml";
+        }
+        else if(HttpContext.Current.Session["ApplyType"].ToString() == "Visa")
+        {
+            Layout = "~/Views/Shared/_DashboardLayout2.cshtml";
+        }
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_HomeLayout.cshtml";
+    }
 }

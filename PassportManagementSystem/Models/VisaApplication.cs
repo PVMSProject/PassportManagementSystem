@@ -17,11 +17,12 @@ namespace PassportManagementSystem.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public VisaApplication()
         {
-            this.VisaCancellations = new HashSet<VisaCancellation>();
+            this.CancellationCharges = 0;
+            this.Status = "Approved";
         }
     
-        public string UserID { get; set; }
         public string VisaID { get; set; }
+        public string UserID { get; set; }
         public string PassportNumber { get; set; }
         public string Country { get; set; }
         public string Occupation { get; set; }
@@ -29,9 +30,10 @@ namespace PassportManagementSystem.Models
         public System.DateTime DateOfIssue { get; set; }
         public System.DateTime DateOfExpiry { get; set; }
         public int RegistrationCost { get; set; }
+        public int CancellationCharges { get; set; }
+        public string Status { get; set; }
     
         public virtual PassportApplication PassportApplication { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VisaCancellation> VisaCancellations { get; set; }
+        public virtual UserRegistration UserRegistration { get; set; }
     }
 }

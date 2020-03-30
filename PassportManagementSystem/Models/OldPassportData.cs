@@ -14,8 +14,8 @@ namespace PassportManagementSystem.Models
     
     public partial class OldPassportData
     {
-        public string UserID { get; set; }
         public string PassportNumber { get; set; }
+        public string UserID { get; set; }
         public string Country { get; set; }
         public string State { get; set; }
         public string City { get; set; }
