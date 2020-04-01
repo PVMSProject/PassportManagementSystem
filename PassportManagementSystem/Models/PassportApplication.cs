@@ -19,7 +19,6 @@ namespace PassportManagementSystem.Models
         public PassportApplication()
         {
             this.ReasonForReIssue = "NA";
-            this.VisaApplications = new HashSet<VisaApplication>();
         }
 
         [RegularExpression("^FPS-[3|6][0][0-9]{4}$", ErrorMessage = "Passport Number is not valid")]
@@ -50,7 +49,5 @@ namespace PassportManagementSystem.Models
         public string ReasonForReIssue { get; set; }
 
         public virtual UserRegistration UserRegistration { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VisaApplication> VisaApplications { get; set; }
     }
 }

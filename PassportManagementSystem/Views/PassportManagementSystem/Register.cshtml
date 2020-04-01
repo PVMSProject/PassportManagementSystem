@@ -19,7 +19,7 @@
                 @Html.ValidationMessageFor(a => a.SurName, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.TextBoxFor(a => a.DateOfBirth, new { @class = "form-control", @placeholder = "Date of Birth  DD/MM/YYYY *" })
+                @Html.TextBoxFor(a => a.DateOfBirth, new { @class = "form-control", @placeholder = "Date of Birth *",@onfocus="this.type='date'"})
                 @Html.ValidationMessageFor(a => a.DateOfBirth, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">

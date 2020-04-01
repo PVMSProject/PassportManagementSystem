@@ -135,6 +135,7 @@
     <Compile Include="Models\City.cs">
       <DependentUpon>PVMSModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomDOA.cs" />
     <Compile Include="Models\CustomDOB.cs" />
     <Compile Include="Models\CustomDOI.cs" />
     <Compile Include="Models\DBOperations.cs" />
@@ -1749,6 +1750,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\logo_transparent.png" />
+    <Content Include="Images\PasspoerVIsa.jpg" />
     <Content Include="Models\PVMSModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>PVMSModel.edmx</DependentUpon>
@@ -1912,20 +1914,25 @@
     <Content Include="Models\PVMSModel.edmx.diagram">
       <DependentUpon>PVMSModel.edmx</DependentUpon>
     </Content>
-    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.4.1.js" />
-    <Content Include="Scripts\jquery-3.4.1.min.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Styles\About.css" />
     <Content Include="Styles\ApplyPassport.css" />
+    <Content Include="Styles\ApplyVisa.css" />
+    <Content Include="Styles\Contact.css" />
+    <Content Include="Styles\Home.css" />
     <Content Include="Styles\HomeMasterPage.css" />
     <Content Include="Styles\PassportReIssue.css" />
+    <Content Include="Styles\VisaAuthentication.css" />
+    <Content Include="Styles\VisaCancellation.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1949,6 +1956,8 @@
     <Content Include="Views\PassportManagementSystem\ApplyVisa.cshtml" />
     <Content Include="Views\PassportManagementSystem\VisaCancellation.cshtml" />
     <Content Include="Views\PassportManagementSystem\Home.cshtml" />
+    <Content Include="Views\PassportManagementSystem\VisaAuthentication.cshtml" />
+    <Content Include="Views\PassportManagementSystem\DisplayCities.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1963,8 +1972,6 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

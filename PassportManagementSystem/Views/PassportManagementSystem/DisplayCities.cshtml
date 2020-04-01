@@ -1,0 +1,9 @@
+﻿@model PassportManagementSystem.Models.City
+<option value="">-- Select your City -- *</option>
+@if (ViewBag.city != null)
+{
+    foreach (var item in ViewBag.city)
+    {
+        <option value="@item.Value">@item.Text</option>
+    }
+}

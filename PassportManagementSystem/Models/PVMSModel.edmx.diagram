@@ -4,18 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f25130273d22473bbe52ed87d60e97a8" Name="Diagram1">
-        <EntityTypeShape EntityType="PassportVisaManagementSystemModel.OldPassportData" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PassportVisaManagementSystemModel.PassportApplication" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PassportVisaManagementSystemModel.State" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="PassportVisaManagementSystemModel.sysdiagram" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PassportVisaManagementSystemModel.UserRegistration" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="PassportVisaManagementSystemModel.VisaApplication" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="PassportVisaManagementSystemModel.City" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+      <Diagram DiagramId="a13b9d3f464e4c93a93bb18346302622" Name="Diagram1">
+        <EntityTypeShape EntityType="PassportVisaManagementSystemModel.OldPassportData" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PassportVisaManagementSystemModel.PassportApplication" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PassportVisaManagementSystemModel.State" Width="1.5" PointX="5.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PassportVisaManagementSystemModel.sysdiagram" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PassportVisaManagementSystemModel.UserRegistration" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="PassportVisaManagementSystemModel.VisaApplication" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PassportVisaManagementSystemModel.City" Width="1.5" PointX="8" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="PassportVisaManagementSystemModel.FK_PassportUserID" ManuallyRouted="false" />
-        <AssociationConnector Association="PassportVisaManagementSystemModel.FK_VisaPassportNo" ManuallyRouted="false" />
         <AssociationConnector Association="PassportVisaManagementSystemModel.FK_STATEID" ManuallyRouted="false" />
-        <AssociationConnector Association="PassportVisaManagementSystemModel.FK_VisaUserID" />
+        <AssociationConnector Association="PassportVisaManagementSystemModel.FK_VisaUserID" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

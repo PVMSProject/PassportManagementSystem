@@ -20,11 +20,11 @@
                 @Html.ValidationMessageFor(a => a.Country, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.DropDownListFor(a => a.State, new SelectList(ViewBag.state, "STATE_ID", "STATE_NAME", ViewBag.statename), "-- Select your State -- *", new {@onchange="getCity()",@class = "form-control" })
+                @Html.DropDownListFor(a => a.State, new SelectList(ViewBag.state, "STATE_NAME", "STATE_NAME", ViewBag.statename), "-- Select your State -- *", new {@class = "form-control" })
                 @Html.ValidationMessageFor(a => a.State, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.DropDownListFor(a => a.City, new SelectList(ViewBag.city, "STATE_ID", "CITY_NAME"), "-- Select your City -- *", new { @id="City",@class = "form-control" })
+                @Html.DropDownListFor(a => a.City, new SelectList(""), "-- Select your City -- *", new { @class = "form-control" })
                 @Html.ValidationMessageFor(a => a.City, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -49,7 +49,7 @@
                 @Html.ValidationMessageFor(a => a.BookletType, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.TextBoxFor(a => a.IssueDate, new { @class = "form-control", @placeholder = "Issue Date DD/MM/YYYY*" })
+                @Html.TextBoxFor(a => a.IssueDate, new { @class = "form-control", @placeholder = "Issue Date *", @onfocus = "this.type='date'" })
                 @Html.ValidationMessageFor(a => a.IssueDate, "", new { @class = "text-danger" })
             </div>
             <input type="submit" class="btn btn-primary" value="APPLY" style="float:right;margin-right:37%;margin-top:5%;" />
@@ -73,17 +73,20 @@
         }
     }
 </div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script>
-    function getCity() {
-        var stateid = document.getElementById("State").value;
-        if (stateid.length != 0)
-        {
-            window.location.href = "/PassportManagementSystem/ApplyPassport?sid=" + stateid;
-            document.getElementById("City").readonly = false;
-        }
-    }
-    //$('#State').change(function () {
-    //    var selectedState = $('#State').val();
-    //    alert(selectedState);
-    //});
+    $(document).ready(function () {
+        $('#State').change(function () {
+            $.ajax({
+                type: "post",
+                url: '/PassportManagementSystem/GetCity?STATE_NAME=' +$(this).val(),
+                contentType: "html",
+                success: function (response)
+                {
+                    $("#City").empty();
+                    $("#City").append(response);    
+                }
+            });
+        });
+    })
 </script>

@@ -1,7 +1,72 @@
-﻿
+﻿@model PassportManagementSystem.Models.VisaApplication
 @{
     ViewBag.Title = "ApplyVisa";
+    PassportManagementSystem.Models.VisaApplication userdata = (PassportManagementSystem.Models.VisaApplication)ViewBag.data;
+    <link href="~/Styles/ApplyVisa.css" rel="stylesheet" />
 }
-
-<h2>ApplyVisa</h2>
-
+<h3 class="title-register">APPLY VISA</h3>
+<div style="float:right;color:red;font-weight:bold;margin-right:10%;">* All Fields are Required</div>
+<div class="register-form">
+    @using (Html.BeginForm())
+    {
+        <div class="div-left">
+            <div class="form-group">
+                @Html.TextBoxFor(a => a.UserID, new { @class = "form-control", @placeholder = "UserID *" })
+                @Html.ValidationMessageFor(a => a.UserID, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.TextBoxFor(a => a.PassportNumber, new { @class = "form-control", @placeholder = "Passport Number *" })
+                @Html.ValidationMessageFor(a => a.PassportNumber, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.DropDownListFor(a => a.Country, new List<SelectListItem> {
+                          new SelectListItem { Value = "USA" , Text = "USA" },
+                          new SelectListItem { Value = "China" , Text = "China" },
+                          new SelectListItem { Value = "Japan" , Text = "Japan" }
+                       }, "-- Select Destination Country -- *", new { @class = "form-control" })
+                @Html.ValidationMessageFor(a => a.Country, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.DropDownListFor(a => a.Occupation, new List<SelectListItem> {
+                          new SelectListItem { Value = "Student" , Text = "Student" },
+                          new SelectListItem { Value = "Private Employee" , Text = "Private Employee" },
+                           new SelectListItem { Value = "Government Employee" , Text = "Government Employee" },
+                          new SelectListItem { Value = "Self Employed" , Text = "Self Employed" },
+                          new SelectListItem { Value = "Retired Employee" , Text = "Retired Employee" }
+                       }, "-- Select Occupation -- *", new { @class = "form-control" })
+                @Html.ValidationMessageFor(a => a.Occupation, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.TextBoxFor(a => a.DateOfApplication, new { @class = "form-control", @placeholder = "Date of Application *", @onfocus = "this.type='date'" })
+                @Html.ValidationMessageFor(a => a.DateOfApplication, "", new { @class = "text-danger" })
+            </div>
+            <input type="submit" class="btn btn-primary" value="APPLY" style="float:left;margin-top:5%;" />
+        </div>
+        <div class="div-right">
+            @if (userdata != null)
+            {
+                <div class="alert alert-dismissible alert-success" style="position:absolute;width:42%;padding-bottom:2%;margin-top:3%;">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <p>Dear User,</p>
+                    <p>Your Visa requested has been accepted successfully with VisaID <span style="color:mediumblue">@userdata.VisaID</span>.</p>
+                    <table>
+                        <tr><th>UserID</th><td>@userdata.UserID</td></tr>
+                        <tr><th>Destination</th><td>@userdata.Country</td></tr>
+                        <tr><th>Employee Occupation</th><td>@userdata.Occupation</td></tr>
+                        <tr><th>Date of Application</th><td>@userdata.DateOfApplication.ToString("dd-MMM-yyyy")</td></tr>
+                        <tr><th>Date of Issue</th><td>@userdata.DateOfIssue.ToString("dd-MMM-yyyy")</td></tr>
+                        <tr><th>Date of Expiry</th><td>@userdata.DateOfExpiry.ToString("dd-MMM-yyyy")</td></tr>
+                        <tr><th>Registration Cost</th><td>Rs.@userdata.RegistrationCost</td></tr>
+                    </table>
+                </div>
+            }
+            @if (ViewBag.error != null)
+            {
+                <div class="alert alert-dismissible alert-danger" style="position:absolute;margin-top:9%;margin-left:3%;width:30%;">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <span>@ViewBag.error</span>
+                </div>
+            }
+        </div>
+    }
+</div>

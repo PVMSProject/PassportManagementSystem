@@ -1,0 +1,35 @@
+﻿@model PassportManagementSystem.Models.UserRegistration
+@{
+    ViewBag.Title = "VisaCancellation";
+    <link href="~/Styles/VisaAuthentication.css" rel="stylesheet" />
+}
+
+<h3 class="title-register">VISA CANCELLATION</h3>
+<div style="float:right;color:red;font-weight:bold;margin-right:10%;">* All Fields are Required</div>
+<div class="register-form">
+    <center>
+        @using (Html.BeginForm())
+        {
+            <div class="form-group">
+                @Html.DropDownListFor(a => a.HintQuestion, new List<SelectListItem> {
+                           new SelectListItem { Value = "What is your Pet name ?" , Text = "What is your Pet name ?" },
+                           new SelectListItem { Value = "What is your Mother's name ?" , Text = "What is your Mother's name ?" },
+                           new SelectListItem { Value = "What is your Favourite Movie ?" , Text = "What is your Favourite Movie ?" }
+                        }, "-- Select Security Question which is selected while regestering -- *", new { @class = "form-control" })
+                @Html.ValidationMessageFor(a => a.HintQuestion, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.TextBoxFor(a => a.HintAnswer, new { @class = "form-control", @placeholder = "Answer the above Security Question *" })
+                @Html.ValidationMessageFor(a => a.HintAnswer, "", new { @class = "text-danger" })
+            </div>
+            <input type="submit" class="btn btn-primary" value="SUBMIT" style="margin-top:3%;" />
+        }
+        @if (ViewBag.error != null)
+        {
+            <div class="alert alert-dismissible alert-danger" style="position:absolute;margin-top:3%;margin-left:5%;width:32%;">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <span>@ViewBag.error</span>
+            </div>
+        }
+    </center>
+</div>

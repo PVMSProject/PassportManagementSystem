@@ -11,7 +11,9 @@ namespace PassportManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class VisaApplication
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,20 +22,29 @@ namespace PassportManagementSystem.Models
             this.CancellationCharges = 0;
             this.Status = "Approved";
         }
-    
+
+        [RegularExpression("^(STU|PE|GE|SE|RE)-[0-9]{4}$", ErrorMessage = "VisaID is not valid")]
+        [Required]
         public string VisaID { get; set; }
+        [RegularExpression("^VISA-[0-9]{4}$", ErrorMessage = "UserID must be like VISA-1234")]
+        [Required]
         public string UserID { get; set; }
+        [RegularExpression("^FPS-[3|6][0][0-9]{4}$", ErrorMessage = "Passport Number is not valid")]
+        [Required]
         public string PassportNumber { get; set; }
+        [Required]
         public string Country { get; set; }
+        [Required]
         public string Occupation { get; set; }
+        [CustomDOA]
+        [Required]
         public System.DateTime DateOfApplication { get; set; }
+        [Required]
         public System.DateTime DateOfIssue { get; set; }
         public System.DateTime DateOfExpiry { get; set; }
         public int RegistrationCost { get; set; }
         public int CancellationCharges { get; set; }
         public string Status { get; set; }
-    
-        public virtual PassportApplication PassportApplication { get; set; }
         public virtual UserRegistration UserRegistration { get; set; }
     }
 }

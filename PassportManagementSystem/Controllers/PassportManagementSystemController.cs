@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace PassportManagementSystem.Controllers
 {
-   // [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+   [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
     public class PassportManagementSystemController : Controller
     {
         static List<State> slist=null;
@@ -106,11 +106,19 @@ namespace PassportManagementSystem.Controllers
                 return RedirectToAction("Login");
             slist = DBOperations.getState();
             ViewBag.state = slist;
-            string stateid = Request.QueryString["sid"];
-            clist = DBOperations.getCity(stateid);
-            ViewBag.city = clist;
-            ViewBag.statename = stateid;
             return View();
+        }
+        public ActionResult GetCity(string STATE_NAME)
+        {
+            slist = DBOperations.getState();
+            ViewBag.state = slist;
+            clist = DBOperations.getCity(STATE_NAME);
+            if(clist!=null)
+            {
+                ViewBag.city = new SelectList(clist, "CITY_NAME", "CITY_NAME");
+                return PartialView("DisplayCities");
+            }
+            return View("ApplyPassport");
         }
         [HttpPost]
         public ActionResult ApplyPassport(PassportApplication P)
@@ -121,14 +129,14 @@ namespace PassportManagementSystem.Controllers
             {
                 slist = DBOperations.getState();
                 ViewBag.state = slist;
-                string stateid = Request.QueryString["sid"];
-                clist = DBOperations.getCity(stateid);
-                ViewBag.city = clist;
-                ViewBag.statename = stateid;
-
-                PassportApplication details = DBOperations.ApplyPassport(P);
-                if (details != null && Session["UserID"].ToString() == details.UserID)
-                    ViewBag.data = details;
+                if (Session["UserID"].ToString() == P.UserID)
+                {
+                    PassportApplication details = DBOperations.ApplyPassport(P);
+                    if (details != null)
+                        ViewBag.data = details;
+                    else
+                        ViewBag.error = "UserId already exists";
+                }
                 else
                     ViewBag.error = "UserId doesn't match with current loginId";
                 ModelState.Clear();
@@ -138,12 +146,8 @@ namespace PassportManagementSystem.Controllers
             {
                 slist = DBOperations.getState();
                 ViewBag.state = slist;
-                string stateid = Request.QueryString["sid"];
-                clist = DBOperations.getCity(stateid);
-                ViewBag.city = clist;
-                ViewBag.statename = stateid;
                 return View();
-            }          
+            }                  
         }
         public ActionResult PassportReIssue()
         {
@@ -151,10 +155,6 @@ namespace PassportManagementSystem.Controllers
                 return RedirectToAction("Login");
             slist = DBOperations.getState();
             ViewBag.state = slist;
-            string stateid = Request.QueryString["sid"];
-            clist = DBOperations.getCity(stateid);
-            ViewBag.city = clist;
-            ViewBag.statename = stateid;
             return View();
         }
         [HttpPost]
@@ -164,16 +164,16 @@ namespace PassportManagementSystem.Controllers
             {
                 slist = DBOperations.getState();
                 ViewBag.state = slist;
-                string stateid = Request.QueryString["sid"];
-                clist = DBOperations.getCity(stateid);
-                ViewBag.city = clist;
-                ViewBag.statename = stateid;
-
-                PassportApplication details = DBOperations.PassportReIssue(P);
-                if (details != null && Session["UserID"].ToString() == details.UserID)
-                    ViewBag.data = details;
+                if (Session["UserID"].ToString() == P.UserID)
+                {
+                    PassportApplication details = DBOperations.PassportReIssue(P);
+                    if (details != null)
+                        ViewBag.data = details;
+                    else
+                        ViewBag.error = "Passport Number w.r.t UserId doesn't exists";
+                }
                 else
-                    ViewBag.error = "Passport Number/UserId doesn't exists";
+                    ViewBag.error = "UserId doesn't match with current loginId";
                 ModelState.Clear();
                 return View();
             }
@@ -181,10 +181,6 @@ namespace PassportManagementSystem.Controllers
             {
                 slist = DBOperations.getState();
                 ViewBag.state = slist;
-                string stateid = Request.QueryString["sid"];
-                clist = DBOperations.getCity(stateid);
-                ViewBag.city = clist;
-                ViewBag.statename = stateid;
                 return View();
             }
         }
@@ -194,11 +190,91 @@ namespace PassportManagementSystem.Controllers
                 return RedirectToAction("Login");
             return View();
         }
+        [HttpPost]
+        public ActionResult ApplyVisa(VisaApplication V)
+        {
+            ModelState.Remove("VisaID");
+            ModelState.Remove("DateOfIssue");
+            if(ModelState.IsValid)
+            {
+                if (Session["UserID"].ToString()== V.UserID)
+                {
+                    VisaApplication details = DBOperations.VisaApply(V);
+                    if (details != null)
+                        ViewBag.data = details;
+                    else
+                        ViewBag.error = "Passport Number doesn't exists";
+                }
+                else
+                    ViewBag.error = "UserId doesn't match with current loginId";
+                ModelState.Clear();
+                return View();
+            }
+            else
+                return View();
+        }
+        public ActionResult VisaAuthentication()
+        {
+            if (Session["UserID"] == null && Session["ApplyType"] == null)
+                return RedirectToAction("Login");
+            Session["Authentication"] = "Unsuccessfull";
+            return View();
+        }
+        [HttpPost]
+        public ActionResult VisaAuthentication(UserRegistration U)
+        {
+            if (ModelState.IsValidField("HintQuestion") && ModelState.IsValidField("HintAnswer"))
+            {
+                U.UserID = Session["UserID"].ToString();
+                string authentication = DBOperations.VisaAuthentication(U);
+                if(authentication!= "Success")
+                {
+                    ModelState.Clear();
+                    ViewBag.error = authentication;
+                    return View();
+                }
+                else
+                { 
+                    Session.Remove("Authentication");
+                    ModelState.Clear();
+                    return RedirectToAction("VisaCancellation");
+                }
+            }
+            else
+                return View();
+        }
         public ActionResult VisaCancellation()
         {
             if (Session["UserID"] == null && Session["ApplyType"] == null)
                 return RedirectToAction("Login");
-            return View();
+            else if(Session["Authentication"]==null)
+                return View();
+            else
+                return RedirectToAction("VisaAuthentication");
+        }
+        [HttpPost]
+        public ActionResult VisaCancellation(VisaApplication V)
+        {
+            ModelState.Remove("Country");
+            ModelState.Remove("Occupation");
+            ModelState.Remove("DateOfApplication");
+            if (ModelState.IsValid)
+            {
+                if (Session["UserID"].ToString() == V.UserID)
+                {
+                    VisaApplication details = DBOperations.VisaCancellation(V);
+                    if (details != null)
+                        ViewBag.data = details;
+                    else
+                        ViewBag.error = "Given details doesn't match in our database";
+                }
+                else
+                    ViewBag.error = "UserId doesn't match with current loginId";
+                ModelState.Clear();
+                return View();
+            }
+            else
+                return View();
         }
     }
 }

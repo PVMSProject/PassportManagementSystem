@@ -1,7 +1,49 @@
-﻿
+﻿@model PassportManagementSystem.Models.VisaApplication
 @{
     ViewBag.Title = "VisaCancellation";
+    PassportManagementSystem.Models.VisaApplication userdata = (PassportManagementSystem.Models.VisaApplication)ViewBag.data;
+    <link href="~/Styles/VisaCancellation.css" rel="stylesheet" />
 }
 
-<h2>VisaCancellation</h2>
-
+<h3 class="title-register">VISA CANCELLATION</h3>
+<div style="float:right;color:red;font-weight:bold;margin-right:10%;">* All Fields are Required</div>
+<div class="register-form">
+    <center>
+        @using (Html.BeginForm())
+        {
+            <div class="form-group">
+                @Html.TextBoxFor(a =>a.UserID, new { @class = "form-control", @placeholder = "UserID *" })
+                @Html.ValidationMessageFor(a => a.UserID, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.TextBoxFor(a => a.PassportNumber, new { @class = "form-control", @placeholder = "Passport Number *" })
+                @Html.ValidationMessageFor(a => a.PassportNumber, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.TextBoxFor(a => a.VisaID, new { @class = "form-control", @placeholder = "VisaID *" })
+                @Html.ValidationMessageFor(a => a.VisaID, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.TextBoxFor(a => a.DateOfIssue, new { @class = "form-control", @placeholder = "Date of Issue *", @onfocus = "this.type='date'" })
+                @Html.ValidationMessageFor(a => a.DateOfIssue, "", new { @class = "text-danger" })
+            </div>
+            <input type="submit" class="btn btn-primary" value="SUBMIT" style="margin-top:3%;" />
+        }
+    </center>
+    @if (userdata != null)
+    {
+        <div class="alert alert-dismissible alert-success" style="position:absolute;margin-top:2%;width:35%;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <p>Dear User,</p>
+            <p>Your request has been submitted successfully.</p>
+            <p>Please pay <span style="color:mediumblue">Rs.@userdata.CancellationCharges</span> to complete the cancellation process.</p>
+        </div>
+    }
+    @if (ViewBag.error != null)
+    {
+        <div class="alert alert-dismissible alert-danger" style="position:absolute;margin-top:3%;width:34%;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <span>@ViewBag.error</span>
+        </div>
+    }
+</div>
