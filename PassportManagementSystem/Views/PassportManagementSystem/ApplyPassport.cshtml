@@ -20,7 +20,7 @@
                 @Html.ValidationMessageFor(a => a.Country, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.DropDownListFor(a => a.State, new SelectList(ViewBag.state, "STATE_NAME", "STATE_NAME", ViewBag.statename), "-- Select your State -- *", new {@class = "form-control" })
+                @Html.DropDownListFor(a => a.State, new SelectList(ViewBag.state, "STATE_NAME", "STATE_NAME"), "-- Select your State -- *", new {@class = "form-control" })
                 @Html.ValidationMessageFor(a => a.State, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">

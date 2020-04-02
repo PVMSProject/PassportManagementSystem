@@ -7,33 +7,35 @@ using System.Web.Mvc;
 
 namespace PassportManagementSystem.Controllers
 {
-   [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+   [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]//Prevents Page from going back when back button is pressed
     public class PassportManagementSystemController : Controller
     {
         static List<State> slist=null;
         static List<City> clist = null;
+        //Displays Home View
         public ActionResult Home()
         {
             return View();
         }
-
+        //Displays About View
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
-
+        //Displays Contact View
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
+        //Displays Register View
         public ActionResult Register()
         {
             return View();
         }
+        //When user submits the form in register page it validates
+        //If validation is successfull then it goes to DBOperations Class and
+        //fetches the data and store in ViewBag.data(used in .cshtml to display) and empty the fiels in the form
+        //Else it returns to the same view with validation messages
         [HttpPost]
         public ActionResult Register(UserRegistration R)
         {
@@ -49,6 +51,9 @@ namespace PassportManagementSystem.Controllers
             else
                 return View();
         }
+        //Retrieving contact number from database to login view based on userid
+        //If contact number w.r.t userid is present then R is sent to view to display the details in textbox
+        //Else message is sent saying that UserID doesn't exists
         public ActionResult GetContactNumber()
         {
             string userid = Request.QueryString["uid"];
@@ -59,6 +64,8 @@ namespace PassportManagementSystem.Controllers
                 ViewBag.error = "UserID " + userid + " doesn't exists";
             return View("Login");
         }
+        //Displays Login View
+        //Session is used to remove that particular session when user logouts
         public ActionResult Login()
         {
             if (Session["UserID"] != null && Session["ApplyType"] != null)
@@ -68,6 +75,11 @@ namespace PassportManagementSystem.Controllers
             }
             return View();
         }
+        //When user submits the form in Login page it validates
+        //If validation is successfull then it goes to DBOperations Class and 
+        //fetches the data and session is created for userid and applytype
+        //based on applytype it redirects to that particular page
+        //Else it returns to the same view with validation messages
         [HttpPost]
         public ActionResult Login(UserRegistration R)
         {         
@@ -99,7 +111,10 @@ namespace PassportManagementSystem.Controllers
             }
             else
                 return View();
-        }     
+        }
+        //when user logins if user type is passport then it redirects to this Action
+        //DBOperations fetches state data on page load to view inorder to select state by the user
+        //Used Session to restrict users to directly access the link without login
         public ActionResult ApplyPassport()
         { 
             if (Session["UserID"] == null && Session["ApplyType"] == null)
@@ -108,6 +123,7 @@ namespace PassportManagementSystem.Controllers
             ViewBag.state = slist;
             return View();
         }
+        //Retrives Cities list from database to view based on state name
         public ActionResult GetCity(string STATE_NAME)
         {
             slist = DBOperations.getState();
@@ -120,6 +136,9 @@ namespace PassportManagementSystem.Controllers
             }
             return View("ApplyPassport");
         }
+        //When user apply the passport it validates
+        //If validation is successfull then it goes to DBOperations Class and 
+        //fetches the data and sends data or error messages to view 
         [HttpPost]
         public ActionResult ApplyPassport(PassportApplication P)
         {
@@ -149,6 +168,9 @@ namespace PassportManagementSystem.Controllers
                 return View();
             }                  
         }
+        //Displays Passport ReIssue View
+        //DBOperations fetches state data on page load to view inorder to select state by the user
+        //Used Session to restrict users to directly access the link without login
         public ActionResult PassportReIssue()
         {
             if (Session["UserID"] == null && Session["ApplyType"] == null)
@@ -157,6 +179,9 @@ namespace PassportManagementSystem.Controllers
             ViewBag.state = slist;
             return View();
         }
+        //When user submit the passport data for reissue it validates
+        //If validation is successfull then it goes to DBOperations Class and 
+        //fetches the data and sends data or error messages to view 
         [HttpPost]
         public ActionResult PassportReIssue(PassportApplication P)
         {
@@ -184,12 +209,17 @@ namespace PassportManagementSystem.Controllers
                 return View();
             }
         }
+        //when user logins if user type is Visa then it redirects to this Action
+        //Used Session to restrict users to directly access the link without login
         public ActionResult ApplyVisa()
         {
             if (Session["UserID"] == null && Session["ApplyType"] == null)
                 return RedirectToAction("Login");
             return View();
         }
+        //When user apply the visa then it validates
+        //If validation is successfull then it goes to DBOperations Class and 
+        //fetches the data and sends data or error messages to view 
         [HttpPost]
         public ActionResult ApplyVisa(VisaApplication V)
         {
@@ -213,6 +243,8 @@ namespace PassportManagementSystem.Controllers
             else
                 return View();
         }
+        //Displays VisaAuthentication View and Created session called 'Authentication'
+        //Used Session to restrict users to directly access the link without login
         public ActionResult VisaAuthentication()
         {
             if (Session["UserID"] == null && Session["ApplyType"] == null)
@@ -220,6 +252,10 @@ namespace PassportManagementSystem.Controllers
             Session["Authentication"] = "Unsuccessfull";
             return View();
         }
+        //When user submits the security question and answer then it validates
+        //If validation is successfull then it goes to DBOperations Class and 
+        //returns 'Success' and removes the 'Authentication' session and redirects to VisaCancellation
+        //else returns to same view
         [HttpPost]
         public ActionResult VisaAuthentication(UserRegistration U)
         {
@@ -243,6 +279,9 @@ namespace PassportManagementSystem.Controllers
             else
                 return View();
         }
+        //Displays VisaCancellation view
+        //Used Session to restrict users to directly access the link without login
+        //Used 'Authentication' session to restricts users to directly access the link without VisaAuthentication
         public ActionResult VisaCancellation()
         {
             if (Session["UserID"] == null && Session["ApplyType"] == null)
@@ -252,6 +291,9 @@ namespace PassportManagementSystem.Controllers
             else
                 return RedirectToAction("VisaAuthentication");
         }
+        //When user cancels the visa then it validates
+        //If validation is successfull then it goes to DBOperations Class and 
+        //fetches the data and sends data or error messages to view 
         [HttpPost]
         public ActionResult VisaCancellation(VisaApplication V)
         {
