@@ -1,6 +1,9 @@
-﻿.div-logo{
-    height:10%;
-    width:100%;
+﻿.div-logo {
+    height: 10%;
+    width: 100%;
+    background-image: url('../Images/background.jpg');
+    background-position: center;
+    padding-bottom: 1px;
 }
 .logo{
     width:12%;

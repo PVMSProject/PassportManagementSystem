@@ -21,7 +21,7 @@
             @Html.ValidationMessageFor(a => a.ReasonForReIssue, "", new { @class = "text-danger" })
         </div>
         <div class="form-group">
-            @Html.TextBoxFor(a => a.UserID, new { @class = "form-control", @placeholder = "UserID *" })
+            @Html.TextBoxFor(a => a.UserID, new { @class = "form-control", @Value = ViewBag.UserID, @readonly = "true" })
             @Html.ValidationMessageFor(a => a.UserID, "", new { @class = "text-danger" })
         </div>
         <div class="form-group">
