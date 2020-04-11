@@ -19,8 +19,8 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44370</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -1751,7 +1751,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\background.jpg" />
     <Content Include="Images\logo_transparent.png" />
-    <Content Include="Images\PasspoerVIsa.jpg" />
+    <Content Include="Images\PassportVisa.jpg" />
     <Content Include="Models\PVMSModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>PVMSModel.edmx</DependentUpon>
@@ -1995,7 +1995,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>34771</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44370</IISUrl>
+          <IISUrl>http://localhost:44370</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

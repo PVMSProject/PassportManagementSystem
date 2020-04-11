@@ -23,13 +23,15 @@
 }
 .register-form {
     padding-top: 5%;
-    padding-bottom:55%;
+    padding-bottom: 55%;
 }
+
 .div-left {
     width: 50%;
-    float:left;
-    padding-left:15%;
+    float: left;
+    padding-left: 15%;
 }
+
 .div-right {
     width: 50%;
     float: left;

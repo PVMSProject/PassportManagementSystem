@@ -12,7 +12,7 @@
         @using (Html.BeginForm())
         {
             <div class="form-group">
-                @Html.TextBoxFor(a => a.UserID, new { @class = "form-control", @Value= ViewBag.UserID,@readonly="true"})
+                @Html.TextBoxFor(a => a.UserID, new { @class = "form-control", @Value = ViewBag.UserID, @readonly = "true" })
                 @Html.ValidationMessageFor(a => a.UserID, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
@@ -24,7 +24,7 @@
                 @Html.ValidationMessageFor(a => a.VisaID, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.TextBoxFor(a => a.DateOfIssue, new { @class = "form-control", @placeholder = "Date of Issue *", @onfocus = "this.type='date'" })
+                @Html.TextBoxFor(a => a.DateOfIssue, new { @class = "form-control", @placeholder = "Date of Issue DD/MM/YYYY *"})
                 @Html.ValidationMessageFor(a => a.DateOfIssue, "", new { @class = "text-danger" })
             </div>
             <input type="submit" class="btn btn-primary" value="SUBMIT" style="margin-top:3%;" />
@@ -47,3 +47,18 @@
         </div>
     }
 </div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script>
+    $(document).ready(function () {
+        $(function () {
+            $("#DateOfIssue").datepicker({
+                yearRange: '-10:+10',
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'dd/mm/yy',
+            });
+        });
+    })
+</script>

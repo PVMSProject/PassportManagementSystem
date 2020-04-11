@@ -10,33 +10,33 @@
 <div class="register-form">
     @using (Html.BeginForm())
     {
-    <div class="div-left">
-        <div class="form-group">
-            @Html.DropDownListFor(a => a.ReasonForReIssue, new List<SelectListItem> {
-                       new SelectListItem { Value = "Validity Expired" , Text = "Validity Expired" },
-                       new SelectListItem { Value = "Exhaustion of Pages" , Text = "Exhaustion of Pages" },
-                       new SelectListItem { Value = "Passport Damaged" , Text = "Passport Damaged " },
-                       new SelectListItem { Value = "Passport Lost" , Text = "Passport Lost" }
-                    }, "-- Select Reason for ReIssue -- *", new { @class = "form-control" })
-            @Html.ValidationMessageFor(a => a.ReasonForReIssue, "", new { @class = "text-danger" })
+        <div class="div-left">
+            <div class="form-group">
+                @Html.DropDownListFor(a => a.ReasonForReIssue, new List<SelectListItem> {
+                           new SelectListItem { Value = "Validity Expired" , Text = "Validity Expired" },
+                           new SelectListItem { Value = "Exhaustion of Pages" , Text = "Exhaustion of Pages" },
+                           new SelectListItem { Value = "Passport Damaged" , Text = "Passport Damaged " },
+                           new SelectListItem { Value = "Passport Lost" , Text = "Passport Lost" }
+                        }, "-- Select Reason for ReIssue -- *", new { @class = "form-control" })
+                @Html.ValidationMessageFor(a => a.ReasonForReIssue, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.TextBoxFor(a => a.UserID, new { @class = "form-control", @Value = ViewBag.UserID, @readonly = "true" })
+                @Html.ValidationMessageFor(a => a.UserID, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.TextBoxFor(a => a.Country, new { @class = "form-control", @placeholder = "Country *" })
+                @Html.ValidationMessageFor(a => a.Country, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.DropDownListFor(a => a.State, new SelectList(ViewBag.state, "STATE_NAME", "STATE_NAME", ViewBag.statename), "-- Select your State -- *", new { @class = "form-control" })
+                @Html.ValidationMessageFor(a => a.State, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.DropDownListFor(a => a.City, new SelectList(""), "-- Select your City -- *", new { @class = "form-control" })
+                @Html.ValidationMessageFor(a => a.City, "", new { @class = "text-danger" })
+            </div>
         </div>
-        <div class="form-group">
-            @Html.TextBoxFor(a => a.UserID, new { @class = "form-control", @Value = ViewBag.UserID, @readonly = "true" })
-            @Html.ValidationMessageFor(a => a.UserID, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.TextBoxFor(a => a.Country, new { @class = "form-control", @placeholder = "Country *" })
-            @Html.ValidationMessageFor(a => a.Country, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.DropDownListFor(a => a.State, new SelectList(ViewBag.state, "STATE_NAME", "STATE_NAME", ViewBag.statename), "-- Select your State -- *", new { @class = "form-control" })
-            @Html.ValidationMessageFor(a => a.State, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.DropDownListFor(a => a.City, new SelectList(""), "-- Select your City -- *", new { @class = "form-control" })
-            @Html.ValidationMessageFor(a => a.City, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
         <div class="div-right">
             <div class="form-group">
@@ -62,7 +62,7 @@
                 @Html.ValidationMessageFor(a => a.BookletType, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.TextBoxFor(a => a.IssueDate, new { @class = "form-control", @placeholder = "Issue Date *", @onfocus = "this.type='date'" })
+                @Html.TextBoxFor(a => a.IssueDate, new { @class = "form-control", @placeholder = "Issue Date DD/MM/YYYY *" })
                 @Html.ValidationMessageFor(a => a.IssueDate, "", new { @class = "text-danger" })
             </div>
             <input type="submit" class="btn btn-primary" value="SUBMIT" style="float:right;margin-right:37%;margin-top:5%;" />
@@ -88,6 +88,8 @@
     }
 </div>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script>
     $(document).ready(function () {
         $('#State').change(function () {
@@ -99,6 +101,14 @@
                     $("#City").empty();
                     $("#City").append(response);
                 }
+            });
+        });
+        $(function () {
+            $("#IssueDate").datepicker({
+                yearRange: 'nn:+10',
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'dd/mm/yy',
             });
         });
     })
